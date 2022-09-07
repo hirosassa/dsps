@@ -10,9 +10,9 @@ jobs:
       go-version: 1.18.3
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # Note: golangci/golangci-lint-action caches. Should not use actions/cache@v2 otherwise result in so many "File exists"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ env.go-version }}
       - name: generate
@@ -55,14 +55,14 @@ jobs:
           --health-retries 10
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
           path: /go/pkg/mod  # Not ~/go/pkg/mod because "container" is active.
           key: ${{ runner.os }}-server-gomod-${{ hashFiles('server/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-server-gomod-
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go-version }}
       - name: Test
@@ -78,7 +78,7 @@ jobs:
         run: |
           curl -s https://codecov.io/bash > codecov.sh
           bash codecov.sh
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: coverage.html
           path: server/coverage.html
@@ -91,13 +91,13 @@ jobs:
       go-version: 1.18.3
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # Note: golangci/golangci-lint-action caches. Should not use actions/cache@v2 otherwise result in so many "File exists"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ env.go-version }}
       - name: build
-        uses: goreleaser/goreleaser-action@v2
+        uses: goreleaser/goreleaser-action@v3
         with:
           version: latest
           workdir: server

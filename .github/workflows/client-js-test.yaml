@@ -8,8 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
           path: client/js/node_modules
           key: ${{ runner.os }}-clinet-js-modules-${{ hashFiles('client/js/yarn.lock') }}
@@ -30,13 +30,13 @@ jobs:
       go-version: 1.18.3
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ env.go-version }}
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: client/js/node_modules
           key: ${{ runner.os }}-clinet-js-modules-${{ hashFiles('client/js/yarn.lock') }}
@@ -56,7 +56,7 @@ jobs:
 
           pushd client/js
           DSPS_BASE_URL="http://localhost:3000/" yarn test:ci
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: coverage
           path: client/js/coverage
